@@ -61,12 +61,12 @@ def home():
 @app.route('/quiz', methods=['GET'])
 def generate_question():
     reis_random = random.sample(list_rei, 4)
-    answers = [ data for _, data in reis_random ]
+    answers = [ data for _,_, data in reis_random ]
     
     question = {
-        'question': "Qual a data de nascimento do Rei " + reis_random[0][0] + "?",
+        'question': "Qual a data de nascimento do Rei " + reis_random[0][1] + "?",
         'options': answers,
-        "answer": reis_random[0][1]
+        "answer": reis_random[0][2]
     } 
     
     questions.append(question)
@@ -92,3 +92,4 @@ def score():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
