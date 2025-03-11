@@ -31,26 +31,6 @@ for r in result['results']['bindings'] :
     t = (r['rei']['value'].split('#')[-1], r['nome']['value'].split('#')[-1], r['nascimento']['value'].split('#')[-1])
     list_rei.append(t)
 
-
-# Mock questions for now
-test_questions = [
-    {
-        "question": "Which date the King ",
-        "options": ["Leonardo da Vinci", "Pablo Picasso", "Vincent van Gogh", "Claude Monet"],
-        "answer": "Leonardo da Vinci"
-    },
-    {
-        "question": "Albert Einstein was born in Germany.",
-        "options": ["True", "False"],
-        "answer": "True"
-    },
-    {
-        "question": "In which year did World War II end?",
-        "options": ["1942", "1945", "1939", "1950"],
-        "answer": "1945"
-    }
-]
-
 questions = []
 
 @app.route('/')
@@ -62,13 +42,24 @@ def home():
 def generate_question():
     reis_random = random.sample(list_rei, 4)
     answers = [ data for _,_, data in reis_random ]
+    random.shuffle(answers)
     
-    question = {
+    question_type1 = {
         'question': "Qual a data de nascimento do Rei " + reis_random[0][1] + "?",
         'options': answers,
         "answer": reis_random[0][2]
     } 
     
+    random_entry = random.choice(answers)
+    answer = "True" if reis_random[0][2] ==  random_entry else "False"
+    
+    question_type2 = {
+        'question': "O Rei " + reis_random[0][1] + " nasceu em " + random_entry + "?",
+        'options': ["True","False"],
+        "answer": answer
+    } 
+    
+    question = random.choice([question_type1, question_type2])
     questions.append(question)
     
     return render_template('quiz.html', question=question)
