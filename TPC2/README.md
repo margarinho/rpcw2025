@@ -1,4 +1,11 @@
-# TPC2
+---
+título: Queries SPARQL 
+data: 19-02-2025  
+id: PG55921  
+autor: Ana Lopes
+---
+
+# TPC2: Queries SPARQL 
 Exercicio em _SPARQL_ sobre o dataset Historia de Portugal.
 
 **Pergunta A:**
@@ -166,4 +173,4 @@ select ?nome (count(?militante) as ?nmilitante) where {
     : nome ?nome;
     :temMilitante ?militante .
 }group by ?partido ?nome
-```
+``` 
