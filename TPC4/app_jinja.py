@@ -1,4 +1,3 @@
-# Backend & Frontend: app.py (Flask with Jinja templates)
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_cors import CORS
 import random
