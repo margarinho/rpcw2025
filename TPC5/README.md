@@ -1,5 +1,5 @@
 ---
-título: 
+título: Harvester DBPedia
 data: 18-03-2025  
 id: PG55921  
 autor: Ana Lopes

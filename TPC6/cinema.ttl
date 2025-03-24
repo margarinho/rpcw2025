@@ -1,0 +1,335 @@
+@prefix : <http://www.semanticweb.org/magui/ontologies/2025/cinema/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/magui/ontologies/2025/cinema/> .
+
+<http://www.semanticweb.org/magui/ontologies/2025/cinem> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Compos
+:Compos rdf:type owl:ObjectProperty ;
+        owl:inverseOf :foiComposta ;
+        rdfs:domain :Pessoa ;
+        rdfs:range :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Escreveu
+:Escreveu rdf:type owl:ObjectProperty ;
+          owl:inverseOf :foiEscrita ;
+          rdfs:domain :Pessoa ;
+          rdfs:range :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Realizou
+:Realizou rdf:type owl:ObjectProperty ;
+          owl:inverseOf :temRealizador ;
+          rdfs:domain :Pessoa ;
+          rdfs:range :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#atuou
+:atuou rdf:type owl:ObjectProperty ;
+       owl:inverseOf :temAtor .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#ePersonagem
+:ePersonagem rdf:type owl:ObjectProperty ;
+             owl:inverseOf :temPersonagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#foiComposta
+:foiComposta rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#foiEscrita
+:foiEscrita rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#representa
+:representa rdf:type owl:ObjectProperty ;
+            rdfs:domain :Pessoa ;
+            rdfs:range :Personagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temArgumento
+:temArgumento rdf:type owl:ObjectProperty ;
+              rdfs:domain :Filme ;
+              rdfs:range :Argumento .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temAtor
+:temAtor rdf:type owl:ObjectProperty ;
+         rdfs:domain :Filme ;
+         rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temGenero
+:temGenero rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Genero .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temLingua
+:temLingua rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Lingua .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temMusical
+:temMusical rdf:type owl:ObjectProperty ;
+            rdfs:domain :Filme ;
+            rdfs:range :Musical .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temPaisOrigem
+:temPaisOrigem rdf:type owl:ObjectProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Pais .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temPersonagem
+:temPersonagem rdf:type owl:ObjectProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Personagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temRealizador
+:temRealizador rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Pessoa .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Data
+:Data rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Filme ;
+      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Durancao
+:Durancao rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Filme ;
+          rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temDataLançamento
+:temDataLançamento rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temSexo
+:temSexo rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Pessoa ;
+         rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Argumento
+:Argumento rdf:type owl:Class ;
+           rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Ator
+:Ator rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :atuou ;
+                                                   owl:someValuesFrom :Filme
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      rdfs:subClassOf [ rdf:type owl:Class ;
+                        owl:unionOf ( :AtorFeminino
+                                      :AtorMasculino
+                                    )
+                      ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#AtorFeminino
+:AtorFeminino rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :temSexo ;
+                                                           owl:hasValue "Feminino"
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#AtorMasculino
+:AtorMasculino rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :temSexo ;
+                                                            owl:hasValue "Masculino"
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Escritor
+:Escritor rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :Escreveu ;
+                                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Argumento
+                                                                                          :Livro
+                                                                                        )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Filme
+:Filme rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesAventura
+:FilmesAventura rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGenero ;
+                                                             owl:hasValue :Acao
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesDramaticos
+:FilmesDramaticos rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :temGenero ;
+                                                               owl:hasValue :Drama
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesInfantis
+:FilmesInfantis rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGenero ;
+                                                             owl:hasValue :Infantil
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesRomanticos
+:FilmesRomanticos rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :temGenero ;
+                                                               owl:hasValue :Romance
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesUSA
+:FilmesUSA rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :temPaisOrigem ;
+                                                        owl:hasValue :USA
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Genero
+:Genero rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Lingua
+:Lingua rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Livro
+:Livro rdf:type owl:Class ;
+       rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musica
+:Musica rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musical
+:Musical rdf:type owl:Class ;
+         rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musico
+:Musico rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :Compos ;
+                                                     owl:someValuesFrom :Musical
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Obra
+:Obra rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Pais
+:Pais rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Personagem
+:Personagem rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Pessoa
+:Pessoa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Realizador
+:Realizador rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :Realizou ;
+                                                         owl:someValuesFrom :Filme
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
