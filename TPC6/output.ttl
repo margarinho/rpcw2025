@@ -1,0 +1,5206 @@
+@prefix : <http://www.semanticweb.org/magui/ontologies/2025/cinema/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/magui/ontologies/2025/cinema/> .
+
+<http://www.semanticweb.org/magui/ontologies/2025/cinem> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Compos
+:Compos rdf:type owl:ObjectProperty ;
+        owl:inverseOf :foiComposta ;
+        rdfs:domain :Pessoa ;
+        rdfs:range :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Escreveu
+:Escreveu rdf:type owl:ObjectProperty ;
+          owl:inverseOf :foiEscrita ;
+          rdfs:domain :Pessoa ;
+          rdfs:range :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Realizou
+:Realizou rdf:type owl:ObjectProperty ;
+          owl:inverseOf :temRealizador ;
+          rdfs:domain :Pessoa ;
+          rdfs:range :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#atuou
+:atuou rdf:type owl:ObjectProperty ;
+       owl:inverseOf :temAtor .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#ePersonagem
+:ePersonagem rdf:type owl:ObjectProperty ;
+             owl:inverseOf :temPersonagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#foiComposta
+:foiComposta rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#foiEscrita
+:foiEscrita rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#representa
+:representa rdf:type owl:ObjectProperty ;
+            rdfs:domain :Pessoa ;
+            rdfs:range :Personagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temArgumento
+:temArgumento rdf:type owl:ObjectProperty ;
+              rdfs:domain :Filme ;
+              rdfs:range :Argumento .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temAtor
+:temAtor rdf:type owl:ObjectProperty ;
+         rdfs:domain :Filme ;
+         rdfs:range :Pessoa .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temGenero
+:temGenero rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Genero .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temLingua
+:temLingua rdf:type owl:ObjectProperty ;
+           rdfs:domain :Filme ;
+           rdfs:range :Lingua .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temMusical
+:temMusical rdf:type owl:ObjectProperty ;
+            rdfs:domain :Filme ;
+            rdfs:range :Musical .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temPaisOrigem
+:temPaisOrigem rdf:type owl:ObjectProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Pais .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temPersonagem
+:temPersonagem rdf:type owl:ObjectProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Personagem .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temRealizador
+:temRealizador rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain :Filme ;
+               rdfs:range :Pessoa .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Data
+:Data rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Filme ;
+      rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Durancao
+:Durancao rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Filme ;
+          rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temDataLançamento
+:temDataLançamento rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#temSexo
+:temSexo rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Pessoa ;
+         rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Argumento
+:Argumento rdf:type owl:Class ;
+           rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Ator
+:Ator rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :atuou ;
+                                                   owl:someValuesFrom :Filme
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] ;
+      rdfs:subClassOf [ rdf:type owl:Class ;
+                        owl:unionOf ( :AtorFeminino
+                                      :AtorMasculino
+                                    )
+                      ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#AtorFeminino
+:AtorFeminino rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty :temSexo ;
+                                                           owl:hasValue "Feminino"
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#AtorMasculino
+:AtorMasculino rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :temSexo ;
+                                                            owl:hasValue "Masculino"
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Escritor
+:Escritor rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :Escreveu ;
+                                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Argumento
+                                                                                          :Livro
+                                                                                        )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Filme
+:Filme rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesAventura
+:FilmesAventura rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGenero ;
+                                                             owl:hasValue :Acao
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesDramaticos
+:FilmesDramaticos rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :temGenero ;
+                                                               owl:hasValue :Drama
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesInfantis
+:FilmesInfantis rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :temGenero ;
+                                                             owl:hasValue :Infantil
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesRomanticos
+:FilmesRomanticos rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :temGenero ;
+                                                               owl:hasValue :Romance
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] ;
+                  rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FilmesUSA
+:FilmesUSA rdf:type owl:Class ;
+           owl:equivalentClass [ owl:intersectionOf ( :Filme
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :temPaisOrigem ;
+                                                        owl:hasValue :USA
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
+           rdfs:subClassOf :Filme .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Genero
+:Genero rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Lingua
+:Lingua rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Livro
+:Livro rdf:type owl:Class ;
+       rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musica
+:Musica rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musical
+:Musical rdf:type owl:Class ;
+         rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Musico
+:Musico rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :Compos ;
+                                                     owl:someValuesFrom :Musical
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Obra
+:Obra rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Pais
+:Pais rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Personagem
+:Personagem rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Pessoa
+:Pessoa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Realizador
+:Realizador rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :Realizou ;
+                                                         owl:someValuesFrom :Filme
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0005690
+:nm0005690 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_K.L._Dickson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0721526
+:nm0721526 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Émile_Reynaud" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1770680
+:nm1770680 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Julien_Pappé" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0721526
+:nm0721526 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Émile_Reynaud" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0443482
+:nm0443482 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Kayser" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0653042
+:nm0653042 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Ott" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0249379
+:nm0249379 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thomas_A._Edison" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0179163
+:nm0179163 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_J._Corbett" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0183947
+:nm0183947 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Peter_Courtney" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0653028
+:nm0653028 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fred_Ott" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0183823
+:nm0183823 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Courtenay" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1309758
+:nm1309758 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Chauncey_Depew" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0085156
+:nm0085156 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alexander_Black" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0085156
+:nm0085156 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alexander_Black" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0525910
+:nm0525910 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Louis_Lumière" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3692297
+:nm3692297 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Grunato" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0804434
+:nm0804434 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Max_Skladanowsky" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0525908
+:nm0525908 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Auguste_Lumière" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0166380
+:nm0166380 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "François_Clerc" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0244989
+:nm0244989 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Benoît_Duval" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3691272
+:nm3691272 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ploetz" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3692071
+:nm3692071 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Delaware" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0010291
+:nm0010291 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Birt_Acres" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0666972
+:nm0666972 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_W._Paul" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2350007
+:nm2350007 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antoine_Féraud" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0525907
+:nm0525907 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antoine_Lumière" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1151424
+:nm1151424 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Félicien_Trewey" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2354154
+:nm2354154 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alphonse_Winckler" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0617588
+:nm0617588 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Georges_Méliès" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0420198
+:nm0420198 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joseph_Jefferson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0895515
+:nm0895515 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gabriel_Veyre" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0525908
+:nm0525908 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Auguste_Lumière" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0617588
+:nm0617588 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Georges_Méliès" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0234288
+:nm0234288 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Aurélio_da_Paz_dos_Reis" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm6170115
+:nm6170115 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jules-Eugène_Legris" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0617588
+:nm0617588 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Georges_Méliès" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0832461
+:nm0832461 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fred_Storey" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0577734
+:nm0577734 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gaston_Méliès" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0103755
+:nm0103755 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_A._Brady" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0808310
+:nm0808310 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Albert_Smith" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0024876
+:nm0024876 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Amigo" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0278321
+:nm0278321 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Fino" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0005717
+:nm0005717 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fructuós_Gelabert" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0556371
+:nm0556371 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Masia" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0563758
+:nm0563758 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Juan_Mañe" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0005717
+:nm0005717 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fructuós_Gelabert" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0677318
+:nm0677318 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mortimer_Peterson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0338379
+:nm0338379 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Tom_Green" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0841389
+:nm0841389 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Josef_Sváb-Malostranský" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1024447
+:nm1024447 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ferdinand_Gýra" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0841389
+:nm0841389 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Josef_Sváb-Malostranský" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0085865
+:nm0085865 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._Stuart_Blackton" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0924920
+:nm0924920 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_H._White" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0857203
+:nm0857203 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ernest_Lawrence_Thayer" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1778224
+:nm1778224 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Carmelli" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1778292
+:nm1778292 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Dupeyron" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0002504
+:nm0002504 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Herbert_Beerbohm_Tree" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0784327
+:nm0784327 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Dora_Tulloch" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2259742
+:nm2259742 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Sefton" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0924893
+:nm0924893 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._Fisher_White" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0177548
+:nm0177548 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "S.A._Cookson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2261015
+:nm2261015 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Franklyn_McLeay" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0909064
+:nm0909064 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lewis_Waller" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2263402
+:nm2263402 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Mollison" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0492774
+:nm0492774 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gerald_Lawrence" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000636
+:nm0000636 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Shakespeare" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0002504
+:nm0002504 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Herbert_Beerbohm_Tree" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0808310
+:nm0808310 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Albert_Smith" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1040375
+:nm1040375 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mr._James" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1894886
+:nm1894886 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mr._Lepard" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0932055
+:nm0932055 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Williamson" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0932055
+:nm0932055 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Williamson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0085865
+:nm0085865 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._Stuart_Blackton" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0807236
+:nm0807236 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Albert_E._Smith" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0324473
+:nm0324473 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Johann_Wolfgang_von_Goethe" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2940072
+:nm2940072 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harold_Smith" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0536252
+:nm0536252 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Pierre_Magnier" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm5670483
+:nm5670483 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Paul_Decauville" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0561109
+:nm0561109 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Clément_Maurice" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0378408
+:nm0378408 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cecil_M._Hepworth" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0378408
+:nm0378408 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cecil_M._Hepworth" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm13155558
+:nm13155558 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Max_Büttner" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0804433
+:nm0804433 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Eugen_Skladanowsky" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0804433
+:nm0804433 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Eugen_Skladanowsky" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1272063
+:nm1272063 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Danjuro_Ichikawa" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1272675
+:nm1272675 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Kikugoro_Onoe_V" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1012612
+:nm1012612 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harold_Graham" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1011210
+:nm1011210 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mr._Graham" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1012621
+:nm1012621 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Jones" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0675239
+:nm0675239 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Orrie_Perry" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0675260
+:nm0675260 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Reg_Perry" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0542567
+:nm0542567 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Manley" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0168621
+:nm0168621 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Buffalo_Bill_Cody" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0509806
+:nm0509806 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jean_Liézer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1778194
+:nm1778194 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Bretteau" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0954087
+:nm0954087 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ferdinand_Zecca" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0954087
+:nm0954087 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ferdinand_Zecca" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0095816
+:nm0095816 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_R._Booth" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm8709803
+:nm8709803 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Daniel_Smith" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1304340
+:nm1304340 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J.C._Buckstone" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0002042
+:nm0002042 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Dickens" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm5394591
+:nm5394591 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Paul_Méliès" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0924920
+:nm0924920 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_H._White" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0925513
+:nm0925513 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thomas_White" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0349785
+:nm0349785 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alice_Guy" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0957652
+:nm0957652 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Émile_Zola" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0029244
+:nm0029244 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Victor_André" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1215996
+:nm1215996 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Brunnet" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0216378
+:nm0216378 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henri_Delannoy" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0220092
+:nm0220092 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Delpierre" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1216405
+:nm1216405 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Farjaux" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1216905
+:nm1216905 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Kelm" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2083046
+:nm2083046 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "François_Lallement" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1012587
+:nm1012587 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Blair" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0265714
+:nm0265714 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Geoffrey_Faithfull" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1539007
+:nm1539007 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Stanley_Faithfull" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0926498
+:nm0926498 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Norman_Whitten" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0140902
+:nm0140902 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lewis_Carroll" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0378408
+:nm0378408 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cecil_M._Hepworth" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm10102653
+:nm10102653 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alfred_Collins" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0001908
+:nm0001908 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gilbert_M._'Broncho_Billy'_Anderson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0007625
+:nm0007625 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "A.C._Abadie" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0055607
+:nm0055607 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Barnes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0055661
+:nm0055661 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Justus_D._Barnes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0131750
+:nm0131750 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_Cameron" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2313241
+:nm2313241 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Manus_Dougherty_Sr." ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0302368
+:nm0302368 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Donald_Gallaher" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm7715443
+:nm7715443 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Shadrack_E._Graham" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0359294
+:nm0359294 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_Hanaway" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3128574
+:nm3128574 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Adam_Charles_Hayman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0692105
+:nm0692105 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edwin_S._Porter" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1854449
+:nm1854449 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Victor_Betzonich" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1856940
+:nm1856940 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Christian_Lundsgaard" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1857036
+:nm1857036 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Scheel_Vandel" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0253298
+:nm0253298 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Peter_Elfelt" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3887135
+:nm3887135 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "E.A._Armstrong" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0519303
+:nm0519303 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henry_Wadsworth_Longfellow" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0742777
+:nm0742777 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joe_Rosenthal" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0692105
+:nm0692105 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edwin_S._Porter" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0924475
+:nm0924475 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Arthur_White" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0214243
+:nm0214243 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "André_Deed" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0243651
+:nm0243651 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Durafour" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0832952
+:nm0832952 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harriet_Beecher_Stowe" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3345408
+:nm3345408 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fred_Farren" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0659947
+:nm0659947 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Paul_Panzer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1173635
+:nm1173635 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "H._Kyrle_Bellew" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0850483
+:nm0850483 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Booth_Tarkington" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0002615
+:nm0002615 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Siegmund_Lubin" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0298300
+:nm0298300 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Martin_Fuller" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0250480
+:nm0250480 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_Edwin" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0177886
+:nm0177886 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Bigelow_Cooper" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0794919
+:nm0794919 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Dorothy_G._Shore" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0809910
+:nm0809910 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Sebastian_Smith" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1539443
+:nm1539443 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mrs._Hepworth" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0894523
+:nm0894523 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jules_Verne" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0257866
+:nm0257866 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Adolphe_d'Ennery" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0340020
+:nm0340020 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "René_Gréhan" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0537222
+:nm0537222 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Léon_Mathot" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0097918
+:nm0097918 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Romeo_Bosetti" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0381874
+:nm0381874 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "André_Heuzé" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0903455
+:nm0903455 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henry_Vorins" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0401076
+:nm0401076 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Victor_Hugo" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0159015
+:nm0159015 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Segundo_de_Chomón" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0159015
+:nm0159015 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Segundo_de_Chomón" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1670497
+:nm1670497 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Phineas_Nairs" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1670913
+:nm1670913 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Voijere" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0728289
+:nm0728289 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_S._Rising" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0353575
+:nm0353575 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_Haggar" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2331275
+:nm2331275 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Haggar" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2329944
+:nm2329944 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henry_Haggar" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2485827
+:nm2485827 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fred_Haggar" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm4749111
+:nm4749111 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joe_Giddings" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0358349
+:nm0358349 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joë_Hamman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0595321
+:nm0595321 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gaston_Modot" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0719480
+:nm0719480 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joaquim_Renez" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0357890
+:nm0357890 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gustave_Hamilton" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0014656
+:nm0014656 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Raymond_Aimos" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0243796
+:nm0243796 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jean_Durand" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0792727
+:nm0792727 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._Barney_Sherry" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0696078
+:nm0696078 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Eugene_Wiley_Presbrey" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0395216
+:nm0395216 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "E.W._Hornung" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0734207
+:nm0734207 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_T._Rock" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0488932
+:nm0488932 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Viggo_Larsen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0488932
+:nm0488932 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Viggo_Larsen" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0023121
+:nm0023121 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Hjalmar_Alvar" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0676941
+:nm0676941 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_Storm_Petersen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0630737
+:nm0630737 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Arnold_Richard_Nielsen" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0602663
+:nm0602663 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Juan_Morales" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0896066
+:nm0896066 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Vico" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1050849
+:nm1050849 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Yepes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0106151
+:nm0106151 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_Brawn" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0565560
+:nm0565560 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Winsor_McCay" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0567363
+:nm0567363 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Wallace_McCutcheon" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0710362
+:nm0710362 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_V._Ranous" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0526168
+:nm0526168 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gustav_Lund" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2014119
+:nm2014119 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_Griswoll" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1669708
+:nm1669708 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "H.L._Bascomb" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1670010
+:nm1670010 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "W.R._Floyd" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1675211
+:nm1675211 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "E.M._Leslie" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1669846
+:nm1669846 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "N.B._Clarke" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1670421
+:nm1670421 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._McDovall" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0166633
+:nm0166633 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_Clifford" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1670731
+:nm1670731 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "C.F._Seabert" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1669657
+:nm1669657 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "D.R._Allen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0601940
+:nm0601940 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thomas_Moore" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0380965
+:nm0380965 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jean_Hersholt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm4824625
+:nm4824625 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Idon_Hartvig" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0601061
+:nm0601061 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Clement_Moore" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm4824599
+:nm4824599 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Max_Freitag" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1845806
+:nm1845806 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Parly_Petersen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0182945
+:nm0182945 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Victor_de_Cottens" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm9551905
+:nm9551905 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Victor_Darlay" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0063413
+:nm0063413 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ricardo_de_Baños" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0846894
+:nm0846894 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Tait" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1431224
+:nm1431224 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Nicholas_Brierley" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3002376
+:nm3002376 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Norman_Campbell" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0143899
+:nm0143899 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Godfrey_Cass" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3001683
+:nm3001683 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Will_Coyne" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0187697
+:nm0187697 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Sam_Crewes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3002754
+:nm3002754 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_Ennis" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3003322
+:nm3003322 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Forde" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0846879
+:nm0846879 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Tait" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0317210
+:nm0317210 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "W.A._Gibson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0425854
+:nm0425854 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Millard_Johnson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0846894
+:nm0846894 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Tait" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0846911
+:nm0846911 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Nevin_Tait" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm9335353
+:nm9335353 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Manuel" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0665572
+:nm0665572 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Pathé" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3763070
+:nm3763070 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cardoso" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0180860
+:nm0180860 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "João_Freire_Correia" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0604384
+:nm0604384 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harry_T._Morey" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0366586
+:nm0366586 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_S._Hart" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0745457
+:nm0745457 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Herman_Rottger" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0310155
+:nm0310155 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gene_Gauntier" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0908753
+:nm0908753 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lew_Wallace" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0022607
+:nm0022607 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Carl_Alstrup" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0647719
+:nm0647719 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lauritz_Olsen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0241414
+:nm0241414 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alexandre_Dumas_fils" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0191133
+:nm0191133 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Cuesta" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0191133
+:nm0191133 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Cuesta" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0366008
+:nm0366008 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_Harron" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0642722
+:nm0642722 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Anthony_O'Sullivan" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0906197
+:nm0906197 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Georges_Wague" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0332182
+:nm0332182 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henri_Gouget" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0141150
+:nm0141150 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Michel_Carré" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2160063
+:nm2160063 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Valdemar_Petersen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0727622
+:nm0727622 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Viking_Ringheim" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0026153
+:nm0026153 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Hans_Christian_Andersen" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0333175
+:nm0333175 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Axel_Graatkjær" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0525876
+:nm0525876 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Knud_Lumbye" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm4572288
+:nm4572288 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Thomsen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0647763
+:nm0647763 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ole_Olsen" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0453315
+:nm0453315 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Eero_Kilpi" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0700930
+:nm0700930 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Teuvo_Puro" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0706854
+:nm0706854 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Teppo_Raikas" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0712213
+:nm0712213 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alex_Rautio" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0811083
+:nm0811083 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jussi_Snellman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0817086
+:nm0817086 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Louis_Sparre" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0882755
+:nm0882755 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._V-s" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0836650
+:nm0836650 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "K.E._Ståhlberg" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2140812
+:nm2140812 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thurston_Harris" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0347565
+:nm0347565 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Enrique_Guitart_padre" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0422930
+:nm0422930 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Enrique_Jiménez" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0347320
+:nm0347320 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Àngel_Guimerà" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0424530
+:nm0424530 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Arthur_V._Johnson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0409390
+:nm0409390 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Inslee" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0853193
+:nm0853193 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Stanner_E.V._Taylor" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0813603
+:nm0813603 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harry_Solter" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0226992
+:nm0226992 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edward_Dillon" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0311375
+:nm0311375 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Gebhardt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0697944
+:nm0697944 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Herbert_Prior" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0784407
+:nm0784407 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mack_Sennett" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0855139
+:nm0855139 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alfred_Lord_Tennyson" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0940488
+:nm0940488 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_E._Woods" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0038260
+:nm0038260 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "L._As" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0140054
+:nm0140054 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joaquín_Carrasco" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0651029
+:nm0651029 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "P._Ortin" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0802955
+:nm0802955 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Vicente_Sirvent" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0900293
+:nm0900293 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Vives" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0900293
+:nm0900293 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Vives" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0494039
+:nm0494039 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Le_Bargy" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0483056
+:nm0483056 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Albert_Lambert" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0029671
+:nm0029671 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jean_Angelo" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0226387
+:nm0226387 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Albert_Dieudonné" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0240647
+:nm0240647 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Raphaël_Duflos" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0521092
+:nm0521092 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Lorrain" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0635615
+:nm0635615 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Rolla_Norman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0491819
+:nm0491819 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henri_Lavedan" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm11698541
+:nm11698541 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Léon_Laffitte" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0480825
+:nm0480825 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Paul_Laffitte" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1562759
+:nm1562759 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frères_Lafitte" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000428
+:nm0000428 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "D.W._Griffith" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000428
+:nm0000428 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "D.W._Griffith" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0331049
+:nm0331049 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Gorman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0629589
+:nm0629589 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Nichols" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0173994
+:nm0173994 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_R._Cumpson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0097743
+:nm0097743 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alberto_Bosch" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0201558
+:nm0201558 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Daroqui" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0346933
+:nm0346933 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Luis_Guilemany" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0554499
+:nm0554499 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Juan_Martí" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0699710
+:nm0699710 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Pubill" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0601962
+:nm0601962 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Tom_Moore" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0086982
+:nm0086982 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Luis_Blanca" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0198154
+:nm0198154 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fidel_Dalmau" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0549760
+:nm0549760 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Marques" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0687752
+:nm0687752 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Plácido" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0098376
+:nm0098376 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Hobart_Bosworth" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0091767
+:nm0091767 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Francis_Boggs" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0241416
+:nm0241416 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alexandre_Dumas" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0783152
+:nm0783152 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Nicholas_Selig" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1866776
+:nm1866776 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mr._Barry" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0872279
+:nm0872279 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Francisco_Tressols" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0148859
+:nm0148859 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Miguel_de_Cervantes_y_Saavedra" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0194088
+:nm0194088 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Narciso_Cuyàs" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0302647
+:nm0302647 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Señor_Gallart" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0802950
+:nm0802950 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Manuel_Sirvent" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0271357
+:nm0271357 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Josep_Feliú_i_Codina" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0735618
+:nm0735618 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cecilio_Rodríguez_de_la_Vega" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0550220
+:nm0550220 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alberto_Marro" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0957979
+:nm0957979 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Zorrilla" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000875
+:nm0000875 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "L._Frank_Baum" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0122665
+:nm0122665 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_Burns" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0933446
+:nm0933446 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_E._Wilson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2924919
+:nm2924919 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Wallace_Illington" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2924347
+:nm2924347 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Bronson_Ward_Jr." ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2922906
+:nm2922906 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Paul_de_Dupont" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0607349
+:nm0607349 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Will_Morrison" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2924736
+:nm2924736 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Clarence_Nearing" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2923902
+:nm2923902 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Sam_'Smiling'_Jones" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0775422
+:nm0775422 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joseph_Schrode" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000875
+:nm0000875 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "L._Frank_Baum" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0877783
+:nm0877783 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Otis_Turner" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000875
+:nm0000875 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "L._Frank_Baum" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0877783
+:nm0877783 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Otis_Turner" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0169871
+:nm0169871 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Émile_Cohl" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0043018
+:nm0043018 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Avery" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0518711
+:nm0518711 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_London" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0524306
+:nm0524306 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Wilfred_Lucas" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0227021
+:nm0227021 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_T._Dillon" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0697563
+:nm0697563 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Antonio_Primo" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0601698
+:nm0601698 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Owen_Moore" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0949133
+:nm0949133 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Barry_O'Moore" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0366610
+:nm0366610 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Bret_Harte" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0085865
+:nm0085865 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "J._Stuart_Blackton" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0786076
+:nm0786076 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ernest_Thompson_Seton" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0448682
+:nm0448682 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Kent" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0790360
+:nm0790360 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Shea" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0007221
+:nm0007221 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Maurice_Costello" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0930504
+:nm0930504 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Earle_Williams" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0509478
+:nm0509478 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Theodore_A._Liebler_Jr." ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0710362
+:nm0710362 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_V._Ranous" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0001908
+:nm0001908 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gilbert_M._'Broncho_Billy'_Anderson" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0001908
+:nm0001908 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Gilbert_M._'Broncho_Billy'_Anderson" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0561489
+:nm0561489 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Édouard_de_Max" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0000428
+:nm0000428 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "D.W._Griffith" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0163468
+:nm0163468 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Claramunt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0613214
+:nm0613214 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "L._Munsal" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0634472
+:nm0634472 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alejandro_Nolla" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0898563
+:nm0898563 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Vincent" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0312148
+:nm0312148 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_María_Gelabert" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0376396
+:nm0376396 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Dell_Henderson" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0784407
+:nm0784407 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mack_Sennett" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1266490
+:nm1266490 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Wallace_McCutcheon_Jr." ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0897085
+:nm0897085 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_G._Vignola" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0137414
+:nm0137414 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Will_Carleton" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0150432
+:nm0150432 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_W._Chambers" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0191885
+:nm0191885 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Dwight_Cummins" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0849803
+:nm0849803 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_Tansey" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0910400
+:nm0910400 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henry_B._Walthall" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0373341
+:nm0373341 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Guy_Hedlund" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0656425
+:nm0656425 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alfred_Paget" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0012317
+:nm0012317 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "John_G._Adolfi" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0152323
+:nm0152323 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Chapman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0393524
+:nm0393524 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thomas_Hood" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0390479
+:nm0390479 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Holger-Madsen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0125164
+:nm0125164 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_J._Butler" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0813603
+:nm0813603 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Harry_Solter" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0535957
+:nm0535957 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Luigi_Maggi" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0610618
+:nm0610618 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Umberto_Mozzato" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0890415
+:nm0890415 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ernesto_Vaser" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1148789
+:nm1148789 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cesare_Gani_Carini" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0120272
+:nm0120272 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edward_George_Bulwer-Lytton" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0648372
+:nm0648372 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Roberto_Omegna" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0024464
+:nm0024464 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Arturo_Ambrosio" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0262757
+:nm0262757 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_Evans" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0538186
+:nm0538186 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Major" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0587134
+:nm0587134 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Herbert_Miles" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1013170
+:nm1013170 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "W._Chrystie_Miller" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0881616
+:nm0881616 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Urban" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0587097
+:nm0587097 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "David_Miles" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0681933
+:nm0681933 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mary_Pickford" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0082349
+:nm0082349 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Svend_Bille" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0104856
+:nm0104856 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Aage_Brandt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0234670
+:nm0234670 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Carl_Schenstrøm" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2931813
+:nm2931813 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Anton_Seitzberg" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1814364
+:nm1814364 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Kai_Voigt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0456804
+:nm0456804 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Kirkwood" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0163559
+:nm0163559 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Verner_Clarges" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0288616
+:nm0288616 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_Powell" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0088881
+:nm0088881 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "August_Blom" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0776198
+:nm0776198 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Axel_Schultz" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0937628
+:nm0937628 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Sofus_Wolder" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm3412368
+:nm3412368 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edmund_Østerby" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0369058
+:nm0369058 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Raymond_Hatton" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0041858
+:nm0041858 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edwin_August" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0408436
+:nm0408436 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Thomas_H._Ince" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0704334
+:nm0704334 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Billy_Quirk" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0185803
+:nm0185803 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Craig" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0097769
+:nm0097769 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_María_Bosch" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0097769
+:nm0097769 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_María_Bosch" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0294058
+:nm0294058 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_K._French" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0495051
+:nm0495051 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Carlos_Leal" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0272889
+:nm0272889 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Nascimento_Fernandes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0274368
+:nm0274368 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lino_Ferreira" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0851633
+:nm0851633 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "João_Tavares" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1728086
+:nm1728086 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Tomás_Vieira" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0005658
+:nm0005658 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "G.W._Bitzer" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0499883
+:nm0499883 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Henry_Lehrman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0878494
+:nm0878494 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mark_Twain" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0316220
+:nm0316220 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joseph_Giampietro" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0093361
+:nm0093361 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Heinrich_Bolten-Baeckers" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0243017
+:nm0243017 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Erich_Dunskus" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1902148
+:nm1902148 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alfred_Duskes" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0674185
+:nm0674185 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Perley" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0537556
+:nm0537556 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Hill_Mailes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0253652
+:nm0253652 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Eliot" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0532072
+:nm0532072 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Fred_Mace" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0064415
+:nm0064415 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Beaudine" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0684773
+:nm0684773 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Elith_Pio" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0919469
+:nm0919469 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Poul_Welander" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0236279
+:nm0236279 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Arthur_Conan_Doyle" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0102510
+:nm0102510 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Bozo" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0347566
+:nm0347566 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Enrique_Guitart" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0176699
+:nm0176699 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_Conway" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0060238
+:nm0060238 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Russell_Bassett" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0395438
+:nm0395438 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "David_Horsley" ;
+               :temCategoria :producer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0681927
+:nm0681927 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jack_Pickford" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0377958
+:nm0377958 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "O._Henry" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0288616
+:nm0288616 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Frank_Powell" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0531584
+:nm0531584 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Marc_McDermott" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0692105
+:nm0692105 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edwin_S._Porter" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0035187
+:nm0035187 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Arling" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0206801
+:nm0206801 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_T._Dazey" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0511729
+:nm0511729 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Max_Linder" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1703900
+:nm1703900 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lucien_Boyer" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0511729
+:nm0511729 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Max_Linder" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0401967
+:nm0401967 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Humphrey" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0612348
+:nm0612348 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Eugene_Mullin" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0178126
+:nm0178126 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Fenimore_Cooper" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0334918
+:nm0334918 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Francis_J._Grandon" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0337033
+:nm0337033 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Joseph_Graybill" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0034453
+:nm0034453 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Argelagués" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0243918
+:nm0243918 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "José_Durany" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0848502
+:nm0848502 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Manuel_Tamayo_y_Baus" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm4117830
+:nm4117830 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_Foley" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0520524
+:nm0520524 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "André_de_Lorde" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0005658
+:nm0005658 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "G.W._Bitzer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0130633
+:nm0130633 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "André_Calmettes" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0211191
+:nm0211191 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Charles_de_Rochefort" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0888708
+:nm0888708 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Jacques_Vandenne" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0596942
+:nm0596942 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Molière" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0949220
+:nm0949220 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "James_Young_Deer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0010017
+:nm0010017 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Walter_Ackerman" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0045867
+:nm0045867 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "André_Bacqué" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0304098
+:nm0304098 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Abel_Gance" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0195544
+:nm0195544 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "René_d'Auchy" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0674600
+:nm0674600 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Léonce_Perret" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0275421
+:nm0275421 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Louis_Feuillade" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0304098
+:nm0304098 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Abel_Gance" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0024344
+:nm0024344 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Pitje_Ambreville" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0077702
+:nm0077702 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Berryer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0680383
+:nm0680383 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edwin_R._Phillips" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0560943
+:nm0560943 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Guy_de_Maupassant" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0797094
+:nm0797094 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "George_Siegmann" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0079813
+:nm0079813 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "William_Bewer" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm1069398
+:nm1069398 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Edvard_Jacobsen" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0618000
+:nm0618000 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Valdemar_Møller" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0834325
+:nm0834325 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Oscar_Stribolt" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm2932070
+:nm2932070 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Erik_Winther" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0304862
+:nm0304862 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ferruccio_Garavaglia" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0232370
+:nm0232370 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Cesare_Dondine" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0626131
+:nm0626131 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Alberto_Nepoti" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0679086
+:nm0679086 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Angelo_Pezzaglia" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0094801
+:nm0094801 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Mario_Bonnard" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0266080
+:nm0266080 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Ugo_Falena" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0115203
+:nm0115203 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Robert_Browning" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0547928
+:nm0547928 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Marc_Mario" ;
+               :temCategoria :actor .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#nm0866243
+:nm0866243 rdf:type owl:NamedIndividual ,
+                        :Pessoa ;
+               :name "Lev_Tolstoy" ;
+               :temCategoria :writer .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#BG
+:BG rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#SG
+:SG rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#XWW
+:XWW rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#CSHH
+:CSHH rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#ES
+:ES rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#BE
+:BE rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#IN
+:IN rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#XEU
+:XEU rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#CN
+:CN rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#KZ
+:KZ rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#CA
+:CA rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#NZ
+:NZ rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#TR
+:TR rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#SUHH
+:SUHH rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#JP
+:JP rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#XYU
+:XYU rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#IR
+:IR rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#US
+:US rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#FI
+:FI rdf:type owl:NamedIndividual ,
+                         :Pais .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#ja
+:ja rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#bg
+:bg rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#ru
+:ru rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#es
+:es rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#cmn
+:cmn rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#sk
+:sk rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#qbn
+:qbn rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#cs
+:cs rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#tr
+:tr rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#fa
+:fa rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#sr
+:sr rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#fr
+:fr rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#en
+:en rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#sv
+:sv rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#hi
+:hi rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+### http://www.semanticweb.org/magui/ontologies/2025/cinem#ca
+:ca rdf:type owl:NamedIndividual ,
+                  :Lingua .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Adventure
+:Adventure rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Crime
+:Crime rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Drama
+:Drama rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Fantasy
+:Fantasy rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Documentary
+:Documentary rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Western
+:Western rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Family
+:Family rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Action
+:Action rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Sci-Fi
+:Sci-Fi rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Horror
+:Horror rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Mystery
+:Mystery rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Sport
+:Sport rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#History
+:History rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Biography
+:Biography rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Short
+:Short rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Comedy
+:Comedy rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Animation
+:Animation rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#Romance
+:Romance rdf:type owl:NamedIndividual ,
+                   :Genero .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000001
+:tt0000001 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000001 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1894" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000002
+:tt0000002 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000002 ;
+          :temGenero :Animation, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1892" ;
+          :duracao 5 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000003
+:tt0000003 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000003 ;
+          :temGenero :Animation, :Comedy, :Romance ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1892" ;
+          :duracao 5 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000004
+:tt0000004 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000004 ;
+          :temGenero :Animation, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1892" ;
+          :duracao 12 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000005
+:tt0000005 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000005 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1893" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000007
+:tt0000007 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000007 ;
+          :temGenero :Short, :Sport ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1894" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000008
+:tt0000008 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000008 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1894" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000010
+:tt0000010 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000010 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000010
+:tt0000010 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000010 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000010
+:tt0000010 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000010 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000010
+:tt0000010 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000010 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XEU ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000012
+:tt0000012 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000012 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :tr;
+          :temPaisOrigem :TR ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000013
+:tt0000013 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000013 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000013
+:tt0000013 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000013 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000014
+:tt0000014 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000014 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000014
+:tt0000014 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000014 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000014
+:tt0000014 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000014 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000016
+:tt0000016 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000016 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000016
+:tt0000016 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000016 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000022
+:tt0000022 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000022 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000023
+:tt0000023 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000023 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000023
+:tt0000023 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000023 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000023
+:tt0000023 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000023 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000026
+:tt0000026 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000026 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000027
+:tt0000027 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000027 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000028
+:tt0000028 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000028 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000029
+:tt0000029 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000029 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000029
+:tt0000029 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000029 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :NZ ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000029
+:tt0000029 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000029 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000029
+:tt0000029 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000029 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000031
+:tt0000031 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000031 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000031
+:tt0000031 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000031 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000031
+:tt0000031 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000031 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000033
+:tt0000033 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000033 ;
+          :temGenero :Comedy, :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1895" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000034
+:tt0000034 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000034 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000035
+:tt0000035 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000035 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000041
+:tt0000041 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000041 ;
+          :temGenero :Comedy, :Documentary, :Short ;
+          :temLingua :ru;
+          :temPaisOrigem :KZ ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000070
+:tt0000070 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000070 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000070
+:tt0000070 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000070 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000070
+:tt0000070 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000070 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000075
+:tt0000075 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000075 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000089
+:tt0000089 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000089 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000089
+:tt0000089 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000089 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000091
+:tt0000091 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000091 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XEU ;
+          :data "1896" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000091
+:tt0000091 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000091 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1896" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000117
+:tt0000117 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000117 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000121
+:tt0000121 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000121 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :sr;
+          :temPaisOrigem :XYU ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000131
+:tt0000131 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000131 ;
+          :temGenero :Comedy, :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000131
+:tt0000131 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000131 ;
+          :temGenero :Comedy, :Horror, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000132
+:tt0000132 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000132 ;
+          :temGenero :Biography, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000132
+:tt0000132 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000132 ;
+          :temGenero :Biography, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000132
+:tt0000132 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000132 ;
+          :temGenero :Biography, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000140
+:tt0000140 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000140 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000143
+:tt0000143 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000143 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000144
+:tt0000144 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000144 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000159
+:tt0000159 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000159 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000162
+:tt0000162 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000162 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000162
+:tt0000162 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000162 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000164
+:tt0000164 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000164 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1897" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000174
+:tt0000174 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000174 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1898" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000190
+:tt0000190 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000190 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :cs;
+          :temPaisOrigem :CSHH ;
+          :data "1898" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000211
+:tt0000211 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000211 ;
+          :temGenero :Comedy, :Fantasy, :Horror ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1898" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000213
+:tt0000213 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000213 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1898" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000222
+:tt0000222 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000222 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1899" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000228
+:tt0000228 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000228 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1899" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000230
+:tt0000230 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000230 ;
+          :temGenero :Drama, :Family, :Fantasy ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1899" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000231
+:tt0000231 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000231 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1896" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000235
+:tt0000235 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000235 ;
+          :temGenero :Adventure, :Fantasy, :Horror ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1899" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000272
+:tt0000272 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000272 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000274
+:tt0000274 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000274 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000286
+:tt0000286 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000286 ;
+          :temGenero :Comedy, :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000286
+:tt0000286 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000286 ;
+          :temGenero :Comedy, :Horror, :Short ;
+          :temLingua :ru;
+          :temPaisOrigem :SUHH ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000299
+:tt0000299 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000299 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000300
+:tt0000300 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000300 ;
+          :temGenero :Animation, :Comedy, :Fantasy ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000302
+:tt0000302 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000302 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :IN ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000302
+:tt0000302 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000302 ;
+          :temGenero :Short ;
+          :temLingua :fr;
+          :temPaisOrigem :CA ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000302
+:tt0000302 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000302 ;
+          :temGenero :Short ;
+          :temLingua :hi;
+          :temPaisOrigem :IN ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000302
+:tt0000302 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000302 ;
+          :temGenero :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1900" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000304
+:tt0000304 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000304 ;
+          :temGenero :Family, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000304
+:tt0000304 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000304 ;
+          :temGenero :Family, :Short ;
+          :temLingua :tr;
+          :temPaisOrigem :TR ;
+          :data "1900" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000319
+:tt0000319 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000319 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1899" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000319
+:tt0000319 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000319 ;
+          :temGenero :Horror, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1899" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000359
+:tt0000359 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000359 ;
+          :temGenero :Comedy, :Fantasy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1901" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000359
+:tt0000359 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000359 ;
+          :temGenero :Comedy, :Fantasy, :Short ;
+          :temLingua :es;
+          :temPaisOrigem :XWW ;
+          :data "1901" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000359
+:tt0000359 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000359 ;
+          :temGenero :Comedy, :Fantasy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1901" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000369
+:tt0000369 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000369 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1901" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000373
+:tt0000373 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000373 ;
+          :temGenero :Drama, :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1902" ;
+          :duracao 11 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000399
+:tt0000399 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000399 ;
+          :temGenero :Fantasy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1902" ;
+          :duracao 10 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000409
+:tt0000409 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000409 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1902" ;
+          :duracao 4 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000416
+:tt0000416 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000416 ;
+          :temGenero :Drama, :Short ;
+          :temLingua :sr;
+          :temPaisOrigem :XYU ;
+          :data "1902" ;
+          :duracao 4 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :cmn;
+          :temPaisOrigem :CN ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :cs;
+          :temPaisOrigem :CSHH ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :en;
+          :temPaisOrigem :IN ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :en;
+          :temPaisOrigem :XEU ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :fr;
+          :temPaisOrigem :CA ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :sk;
+          :temPaisOrigem :CSHH ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000417
+:tt0000417 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000417 ;
+          :temGenero :Adventure, :Comedy, :Fantasy ;
+          :temLingua :tr;
+          :temPaisOrigem :TR ;
+          :data "1902" ;
+          :duracao 13 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000420
+:tt0000420 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000420 ;
+          :temGenero :Family, :Fantasy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1903" ;
+          :duracao 9 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000432
+:tt0000432 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000432 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1903" ;
+          :duracao 1 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000437
+:tt0000437 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000437 ;
+          :temGenero :Drama, :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1903" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000439
+:tt0000439 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000439 ;
+          :temGenero :Action, :Adventure, :Crime ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1903" ;
+          :duracao 11 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000439
+:tt0000439 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000439 ;
+          :temGenero :Action, :Adventure, :Crime ;
+          :temLingua :fa;
+          :temPaisOrigem :IR ;
+          :data "1903" ;
+          :duracao 11 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000439
+:tt0000439 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000439 ;
+          :temGenero :Action, :Adventure, :Crime ;
+          :temLingua :fr;
+          :temPaisOrigem :CA ;
+          :data "1903" ;
+          :duracao 11 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000439
+:tt0000439 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000439 ;
+          :temGenero :Action, :Adventure, :Crime ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1903" ;
+          :duracao 11 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000447
+:tt0000447 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000447 ;
+          :temGenero :Action, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1903" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000447
+:tt0000447 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000447 ;
+          :temGenero :Action, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1903" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000451
+:tt0000451 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000451 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1903" ;
+          :duracao 4 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000465
+:tt0000465 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000465 ;
+          :temGenero :Adventure, :Fantasy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1903" ;
+          :duracao 16 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000465
+:tt0000465 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000465 ;
+          :temGenero :Adventure, :Fantasy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1903" ;
+          :duracao 16 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000487
+:tt0000487 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000487 ;
+          :temGenero :Drama, :Short, :Western ;
+          :temLingua :tr;
+          :temPaisOrigem :TR ;
+          :data "1904" ;
+          :duracao 8 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000495
+:tt0000495 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000495 ;
+          :temGenero :Fantasy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1907" ;
+          :duracao 12 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000499
+:tt0000499 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000499 ;
+          :temGenero :Action, :Adventure, :Family ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1904" ;
+          :duracao 24 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000499
+:tt0000499 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000499 ;
+          :temGenero :Action, :Adventure, :Family ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1904" ;
+          :duracao 24 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000499
+:tt0000499 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000499 ;
+          :temGenero :Action, :Adventure, :Family ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1904" ;
+          :duracao 24 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000505
+:tt0000505 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000505 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1906" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000515
+:tt0000515 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000515 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :ca;
+          :temPaisOrigem :ES ;
+          :data "1904" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000515
+:tt0000515 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000515 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1904" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000525
+:tt0000525 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000525 ;
+          :temGenero :Short, :Western ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1910" ;
+          :duracao 7 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000525
+:tt0000525 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000525 ;
+          :temGenero :Short, :Western ;
+          :temLingua :sr;
+          :temPaisOrigem :XYU ;
+          :data "1910" ;
+          :duracao 7 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000541
+:tt0000541 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000541 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1906" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000542
+:tt0000542 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000542 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1906" ;
+          :duracao 7 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000543
+:tt0000543 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000543 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1906" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000554
+:tt0000554 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000554 ;
+          :temGenero :Animation, :Comedy, :Family ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1906" ;
+          :duracao 3 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000574
+:tt0000574 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000574 ;
+          :temGenero :Action, :Adventure, :Biography ;
+          :temLingua :en;
+          :temPaisOrigem :SG ;
+          :data "1906" ;
+          :duracao 70 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000575
+:tt0000575 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000575 ;
+          :temGenero :Adventure, :Fantasy, :Sci-Fi ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1907" ;
+          :duracao 10 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000582
+:tt0000582 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000582 ;
+          :temGenero :Drama, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1907" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000614
+:tt0000614 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000614 ;
+          :temGenero :Fantasy, :Horror, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1907" ;
+          :duracao 9 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000618
+:tt0000618 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000618 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1907" ;
+          :duracao 20 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000618
+:tt0000618 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000618 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1907" ;
+          :duracao 20 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000628
+:tt0000628 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000628 ;
+          :temGenero :Action, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 12 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000637
+:tt0000637 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000637 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1908" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000637
+:tt0000637 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000637 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000637
+:tt0000637 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000637 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :sr;
+          :temPaisOrigem :XYU ;
+          :data "1908" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000657
+:tt0000657 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000657 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ca;
+          :temPaisOrigem :ES ;
+          :data "1908" ;
+          :duracao 10 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000658
+:tt0000658 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000658 ;
+          :temGenero :Animation, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1908" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000666
+:tt0000666 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000666 ;
+          :temGenero :Documentary, :Short, :Sport ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1908" ;
+          :duracao 25 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000667
+:tt0000667 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000667 ;
+          :temGenero :Documentary, :Short, :Sport ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1908" ;
+          :duracao 9 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000682
+:tt0000682 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000682 ;
+          :temGenero :Animation, :Comedy, :Family ;
+          :temLingua :en;
+          :temPaisOrigem :CA ;
+          :data "1908" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000682
+:tt0000682 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000682 ;
+          :temGenero :Animation, :Comedy, :Family ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1908" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000682
+:tt0000682 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000682 ;
+          :temGenero :Animation, :Comedy, :Family ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 2 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000717
+:tt0000717 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000717 ;
+          :temGenero :Drama, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1908" ;
+          :duracao 9 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000717
+:tt0000717 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000717 ;
+          :temGenero :Drama, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 9 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000719
+:tt0000719 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000719 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :ca;
+          :temPaisOrigem :ES ;
+          :data "1908" ;
+          :duracao 14 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000719
+:tt0000719 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000719 ;
+          :temGenero :Documentary, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1908" ;
+          :duracao 14 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000749
+:tt0000749 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000749 ;
+          :temGenero :Action, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 8 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000754
+:tt0000754 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000754 ;
+          :temGenero :Drama, :Romance, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1908" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000770
+:tt0000770 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000770 ;
+          :temGenero :Comedy, :Romance, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1908" ;
+          :duracao 17 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000776
+:tt0000776 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000776 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1908" ;
+          :duracao 17 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000832
+:tt0000832 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000832 ;
+          :temGenero :Crime, :Drama, :Short ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1909" ;
+          :duracao 14 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000854
+:tt0000854 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000854 ;
+          :temGenero :Biography, :Drama, :Short ;
+          :temLingua :sr;
+          :temPaisOrigem :XYU ;
+          :data "1909" ;
+          :duracao 7 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000883
+:tt0000883 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000883 ;
+          :temGenero :Mystery, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1909" ;
+          :duracao 14 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000885
+:tt0000885 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000885 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1909" ;
+          :duracao 19 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000916
+:tt0000916 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000916 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1910" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000941
+:tt0000941 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000941 ;
+          :temGenero :Drama ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1909" ;
+          :duracao 45 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000969
+:tt0000969 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000969 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :US ;
+          :data "1909" ;
+          :duracao 44 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000969
+:tt0000969 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000969 ;
+          :temGenero :Drama, :History, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1909" ;
+          :duracao 44 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000971
+:tt0000971 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000971 ;
+          :temGenero :Drama, :Romance, :Short ;
+          :temLingua :qbn;
+          :temPaisOrigem :BE ;
+          :data "1909" ;
+          :duracao 6 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000987
+:tt0000987 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000987 ;
+          :temGenero :Comedy, :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1910" ;
+          :duracao 15 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000990
+:tt0000990 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000990 ;
+          :temGenero :Drama, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1909" ;
+          :duracao 14 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000998
+:tt0000998 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000998 ;
+          :temGenero :Drama, :Romance, :Short ;
+          :temLingua :bg;
+          :temPaisOrigem :BG ;
+          :data "1909" ;
+          :duracao 12 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0000998
+:tt0000998 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0000998 ;
+          :temGenero :Drama, :Romance, :Short ;
+          :temLingua :sv;
+          :temPaisOrigem :FI ;
+          :data "1909" ;
+          :duracao 12 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0001004
+:tt0001004 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0001004 ;
+          :temGenero :Short ;
+          :temLingua :en;
+          :temPaisOrigem :XWW ;
+          :data "1909" ;
+          :duracao 8 .
+
+###  http://www.semanticweb.org/magui/ontologies/2025/cinem#tt0001013
+:tt0001013 rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temArgumento :Argumentott0001013 ;
+          :temGenero :Short, :Western ;
+          :temLingua :ja;
+          :temPaisOrigem :JP ;
+          :data "1909" ;
+          :duracao 14 .
