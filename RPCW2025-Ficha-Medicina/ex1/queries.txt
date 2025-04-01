@@ -1,0 +1,30 @@
+Quantas classes estão definidas na Ontologia?
+SELECT (COUNT(DISTINCT ?classe) AS ?total_classes)
+WHERE {
+  ?classe a rdfs:Class.
+}
+
+Quantas Object Properties estão definidas na Ontologia?
+SELECT (COUNT(DISTINCT ?prop) AS ?total_op)
+WHERE {
+  ?prop a owl:ObjectProperty.
+}
+
+Quantos indivíduos existem na tua ontologia?
+SELECT (COUNT(?indiv) AS ? total)
+WHERE {
+  ?indiv a ?classe.
+}
+
+Quem planta tomates?
+select distinct ?indiv where { 
+  ?indiv a :Pessoa ;
+   :produz :Tomate.
+}
+
+
+Quem contrata trabalhadores temporários?
+select distinct ?indiv where { 
+  ?indiv a :Pessoa ;
+    :criaContrato :ContratoTemporario .
+}
