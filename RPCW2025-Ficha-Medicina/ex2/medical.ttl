@@ -44,33 +44,3 @@
     :hasSymptom :IncreasedThirst, :FrequentUrination, :Fatigue ;
     :hasTreatment :InsulinTherapy, :DietModification, :Exercise .
 
-# Symptom instances
-:Fever a :Symptom .
-:Cough a :Symptom .
-:SoreThroat a :Symptom .
-:IncreasedThirst a :Symptom .
-:FrequentUrination a :Symptom .
-:Fatigue a :Symptom .
-
-# Treatment instances
-:Rest a :Treatment .
-:Hydration a :Treatment .
-:AntiviralDrugs a :Treatment .
-:InsulinTherapy a :Treatment .
-:DietModification a :Treatment .
-:Exercise a :Treatment .
-
-
-# Patient instances
-:Patient1 a :Patient ;
-    :name "Paul Harrods"
-    :exhibitsSymptom :Fever ;
-    :exhibitsSymptom :Cough ;
-    :exhibitsSymptom :SoreThroat .
-
-:Patient2 a :Patient ;
-    :name "Ana Montana"
-    :exhibitsSymptom :IncreasedThirst ;
-    :exhibitsSymptom :FrequentUrination ;
-    :exhibitsSymptom :Fatigue .
-
